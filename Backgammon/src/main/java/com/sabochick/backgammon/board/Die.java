@@ -3,13 +3,13 @@ package com.sabochick.backgammon.board;
 import java.util.Random;
 
 public class Die {
-	Random rand;
+	private Random rand;
 
 	public Die() {
 		rand = new Random();
 	}
 
-	public int rollDie() {
+	protected int rollDie() {
 		return rand.nextInt(6) + 1; // return 1 through 6 (inclusive)
 	}
 

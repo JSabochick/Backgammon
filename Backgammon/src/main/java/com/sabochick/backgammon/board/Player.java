@@ -1,6 +1,6 @@
 package com.sabochick.backgammon.board;
 
-public class Player {
+public abstract class Player {
 	private int id;
 
 	public Player(int id) {

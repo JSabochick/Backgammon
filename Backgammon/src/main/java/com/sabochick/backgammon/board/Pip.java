@@ -3,28 +3,30 @@ package com.sabochick.backgammon.board;
 import java.util.ArrayList;
 
 public class Pip {
-	private int id;
-	private ArrayList<Checker> checkers = new ArrayList<Checker>();
+	protected int position;
+	protected ArrayList<Checker> checkers = new ArrayList<Checker>();
+	
+	public Pip(int i){
+		this.setPosition(i);
+	}
 
 	public int getNumberOfCheckers() {
 		return checkers.size();
 	}
 
-	public void addCheckerToPip(Checker checker) {
-		if (this.getNumberOfCheckers() >= 2
-				&& !checker.getOwner().equals(checkers.get(0).getOwner())) {
+	protected void addCheckerToPip(Checker checker) {
+
+		if (this.getNumberOfCheckers() >= 2 //check if pip is blocked by other player
+				&& !checker.getOwner().equals(checkers.get(0).getOwner()) && !(this instanceof Bar)) {
 			System.out
 					.println("Unable to move checker. Pip is owned by other player");
 			return;
-		}
-		if (checkers.contains(checker)) {
-			System.out.println("Checker already present on pip");
-			return;
 		} else
-			checkers.add(checker);
+			checkers.add(checker); //add checker to checkers on new pip
+			checker.getCurrentPip().removeCheckerFromPip(checker); //remove checker from checkers on old pip
 	}
 
-	public void removeCheckerFromPip(Checker checker) {
+	private void removeCheckerFromPip(Checker checker) {
 		if (checkers.contains(checker)) {
 			checkers.remove(checker);
 		} else
@@ -32,12 +34,12 @@ public class Pip {
 					.println("Unable to remove checker; checker not foud on pip");
 	}
 
-	public int getId() {
-		return id;
+	public int getPosition() {
+		return position;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setPosition(int position) {
+		this.position = position;
 	}
 
 }
